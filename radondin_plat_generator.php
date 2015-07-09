@@ -1,0 +1,73 @@
+<?php
+
+/* MET LA PREMIERE LETTRE D'UNE VARCHAR EN MAJUSCULES, MEME UTF-8 */
+function ucfirst_utf8($stri){
+	if($stri{0}>="\xc3")
+		 return (($stri{1}>="\xa0")?
+		 ($stri{0}.chr(ord($stri{1})-32)):
+		 ($stri{0}.$stri{1})).substr($stri,2);
+	else return ucfirst($stri);
+}
+
+
+function radondin_plat($id_array){
+
+	$plat='';
+
+	/* ARTICLE - PARTIE DE PLAT 1 */
+	$req = mysql_query("SELECT id,article FROM articles_".$id_array[0]." WHERE id=".$id_array[1]);
+	$rep = mysql_fetch_row($req);
+	$article=$rep[1];
+	$plat=$article;
+
+	/* ADJECTIF - PARTIE DE PLAT 1 */	
+	$req = mysql_query("SELECT id,adjectif FROM adjectifs_".$id_array[0]." WHERE id=".$id_array[2]);
+	$rep = mysql_fetch_row($req);
+	$adjectif = $rep[1];
+	if (empty($article)) {
+		$plat=$adjectif;
+	} else{
+		$plat=$plat.' '.$adjectif;
+	}	
+
+	/* QUANTIFIANT - PARTIE DE PLAT 1 */	
+	$req = mysql_query("SELECT id,quantifiant FROM quantifiants_".$id_array[0]." WHERE id=".$id_array[3]);
+	$rep = mysql_fetch_row($req);
+	$quantifiant = $rep[1];
+	if((empty($article))&&(empty($adjectif))) {
+		$plat=$quantifiant;
+		/* preg_replace('#^é#','#^É#',$quantifiant); /* si le quantifiant commence par "é" (pour "émincé") on remplace par É (ne marche pas) */
+	} else{
+		$plat=$plat.' '.$quantifiant;
+	}
+
+	/* INGREDIENT - PARTIE DE PLAT 2 */	
+	$req = mysql_query("SELECT id,ingredient FROM ingredients_".$id_array[4]." WHERE id=".$id_array[5]);
+	$rep = mysql_fetch_row($req);
+	if (preg_match('#^[aeiou]#', $rep[1])) { /* teste si il y a une voyelle en début de chaîne */
+		$plat=$plat.' d\''.$rep[1];		
+	}
+	else {
+		$plat=$plat.' de '.$rep[1];		
+	}
+	
+	/* QUALIFICATIF - PARTIE DE PLAT 2 */	
+	$req = mysql_query("SELECT id,qualificatif FROM qualificatifs_".$id_array[4]." WHERE id=".$id_array[6]);
+	$rep = mysql_fetch_row($req);	
+	$plat=$plat.' '.$rep[1]; 
+	
+	/* FIN */	
+	$req = mysql_query("SELECT id,fin FROM fin WHERE id=".$id_array[7]);
+	$rep = mysql_fetch_row($req);	
+	if (preg_match('#^,#', $rep[1])) { /* teste si il y a une virgule en début de chaîne */
+		$plat=$plat.$rep[1];		
+	}
+	else {
+		$plat=$plat.' '.$rep[1]; 		
+	}		
+
+	return ucfirst_utf8($plat);
+
+}
+	
+?>

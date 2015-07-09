@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /bernard-old/
+Disallow: /frise-histoire/

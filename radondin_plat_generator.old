@@ -1,0 +1,146 @@
+<?php
+
+function radondin_plat(){
+
+	$plat='';
+
+	/* CHOIX DU GENRE POUR LA PARTIE DE PLAT 1*/
+	$genre_nb_1=rand(1,10);
+	if ($genre_nb_1<=4) {
+		$genre1='ms'; /* masculin singulier */
+	}
+	elseif ($genre_nb_1 > 4 && $genre_nb_1 <= 8) {
+		$genre1='fs'; /* féminin singulier */
+	}
+	elseif ($genre_nb_1==9) {
+		$genre1='mp'; /* masculin pluriel */
+	}
+	elseif ($genre_nb_1==10) {
+		$genre1='fp'; /* féminin pluriel */
+	}
+	
+	/* ARTICLE - PARTIE DE PLAT 1 */
+	$req = mysql_query("SELECT SUM(poids) FROM articles_".$genre1);
+	$poids_total = mysql_result($req, 0, 0);
+	$aleatoire = rand (1,$poids_total);
+	$req = mysql_query("SELECT poids,article,id FROM articles_".$genre1);
+	while($rep = mysql_fetch_row($req)) {
+		$aleatoire -= $rep[0];
+		if ($aleatoire <= 0) {
+			$article=$rep[1];
+			$id = $rep[2];	
+			$plat=ucfirst($article);
+			break;
+		}
+	}
+
+	/* ADJECTIF - PARTIE DE PLAT 1 */	
+	$req = mysql_query("SELECT SUM(poids) FROM adjectifs_".$genre1);
+	$poids_total = mysql_result($req, 0, 0);
+	$aleatoire = rand (0,$poids_total);
+	$req = mysql_query("SELECT poids,adjectif,id FROM adjectifs_".$genre1);
+	while($rep = mysql_fetch_row($req)) {
+		$aleatoire -= $rep[0];
+		if ($aleatoire <= 0) {
+			$adjectif = $rep[1]; 
+			$id = $id.$rep[2];
+			if (empty($article)) {
+				$plat=ucfirst($adjectif);
+			} else{
+				$plat=$plat.' '.$adjectif;
+			}
+			break;
+		}
+	}
+	
+	/* QUANTIFIANT - PARTIE DE PLAT 1 */	
+	$req = mysql_query("SELECT SUM(poids) FROM quantifiants_".$genre1);
+	$poids_total = mysql_result($req, 0, 0);
+	$aleatoire = rand (0,$poids_total);
+	$req = mysql_query("SELECT poids,quantifiant,id FROM quantifiants_".$genre1);
+	while($rep = mysql_fetch_row($req)) {
+		$aleatoire -= $rep[0];
+		if ($aleatoire <= 0) {
+			$quantifiant = $rep[1];
+			$id = $id.$rep[2];
+			if((empty($article))&&(empty($adjectif))) {
+				$plat=ucfirst($quantifiant);
+				/* preg_replace('#^é#','#^É#',$quantifiant); /* si le quantifiant commence par "é" (pour "émincé") on remplace par É (ne marche pas) */
+			} else{
+				$plat=$plat.' '.$quantifiant;
+			}
+			break;
+		}
+	}
+	
+	/* CHOIX DU GENRE POUR LA PARTIE DE PLAT 2 */
+	$genre_nb_2=rand(1,4);
+	if ($genre_nb_2<=4) {
+		$genre2='ms'; /* masculin singulier */
+	}
+	elseif ($genre_nb_2 > 4 && $genre_nb_2 <= 8) {
+		$genre2='fs'; /* féminin singulier */
+	}
+	elseif ($genre_nb_2==9) {
+		$genre2='mp'; /* masculin pluriel */
+	}
+	elseif ($genre_nb_1==10) {
+		$genre2='fp'; /* féminin pluriel */
+	}
+		
+	/* INGREDIENT - PARTIE DE PLAT 2 */	
+	$req = mysql_query("SELECT SUM(poids) FROM ingredients_".$genre2);
+	$poids_total = mysql_result($req, 0, 0);
+	$aleatoire = rand (0,$poids_total);
+	$req = mysql_query("SELECT poids,ingredient,id FROM ingredients_".$genre2);
+	while($rep = mysql_fetch_row($req)) {
+		$aleatoire -= $rep[0];
+		if ($aleatoire <= 0) {
+			$id = $id.$rep[2];		
+			if (preg_match('#^[aeiou]#', $rep[1])) { /* teste si il y a une voyelle en début de chaîne */
+				$plat=$plat.' d\''.$rep[1];		
+			}
+			else {
+				$plat=$plat.' de '.$rep[1];		
+			}
+			break;
+		}
+	}
+
+	/* QUALIFICATIF - PARTIE DE PLAT 2 */	
+	$req = mysql_query("SELECT SUM(poids) FROM qualificatifs_".$genre2);
+	$poids_total = mysql_result($req, 0, 0);
+	$aleatoire = rand (0,$poids_total);
+	$req = mysql_query("SELECT poids,qualificatif FROM qualificatifs_".$genre2);
+	while($rep = mysql_fetch_row($req)) {
+		$aleatoire -= $rep[0];
+		if ($aleatoire <= 0) {
+			$id = $id.$rep[2];		
+			$plat=$plat.' '.$rep[1]; 
+			break;
+		}
+	}	
+	
+	/* FIN */	
+	$req = mysql_query("SELECT SUM(poids) FROM fin");
+	$poids_total = mysql_result($req, 0, 0);
+	$aleatoire = rand (0,$poids_total);
+	$req = mysql_query("SELECT poids,fin FROM fin");
+	while($rep = mysql_fetch_row($req)) {
+		$aleatoire -= $rep[0];
+		if ($aleatoire <= 0) {
+			$id = $id.$rep[2];		
+			if (preg_match('#^,#', $rep[1])) { /* teste si il y a une virgule en début de chaîne */
+				$plat=$plat.$rep[1];		
+			}
+			else {
+				$plat=$plat.' '.$rep[1]; 		
+			}		
+			break;
+		}
+	}
+	echo $plat;
+	/* echo '<br />'.$id; */
+}
+	
+?>
