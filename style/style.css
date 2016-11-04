@@ -41,8 +41,9 @@ text-align:center;
 }
 
 #bouton-actualiser input{
-width:140px;
-height:30px;
+width:170px;
+height:40px;
+font-size:1.2em;
 cursor:pointer;
 }
 
@@ -61,4 +62,11 @@ margin-top: 10px;
 text-align: center;
 font-family: verdana;
 font-size: 0.7em;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+
+
 }

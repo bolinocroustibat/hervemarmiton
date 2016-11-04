@@ -91,9 +91,7 @@ $plat=radondin_plat($id_array);  // Crée le plat en fonction de l'ID !
 	<div id="menu">
 		<img src="style/deco-vigne_1.png" alt="" />
 		<div id="plat">
-			<?php
-				echo $plat;
-			?>
+			<?php echo $plat; ?>
 		</div>
 		<img src="style/deco-vigne_2.png" alt="" />
 	</div>

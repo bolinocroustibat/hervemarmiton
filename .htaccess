@@ -1,0 +1,6 @@
+RewriteEngine On
+
+########################   REECRITURE DES PAGES RADONDIN GENERATOR  ############################
+RewriteRule ^liste\.html$				liste.php [QSA]
+RewriteRule ^(.*)\.html$				index.php?id=$1 [QSA,L]
+RewriteRule ^bernard/(.*)$ http://www.georgestroll.com/$1 [R=301,L]
