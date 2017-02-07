@@ -4,15 +4,15 @@ background: url(background6.gif) 0 0 repeat;
 
 #menu{
 font-family: 'Great Vibes', cursive;
-/* font-family: 'Tangerine', cursive; */
 font-size:2.2em;
-width:90%;
+width:80%;
 max-width:980px;
 margin:50px auto 0 auto;
 padding:20px;
 text-align:center;
 background-color:#FFF6D7;
 border-style:double;
+border-radius:10px;
 }
 
 #plat{
@@ -21,7 +21,6 @@ margin:30px 0 30px 0;
 
 #menu-liste{
 font-family: 'Great Vibes', cursive;
-/* font-family: 'Tangerine', cursive; */
 font-size:1.4em;
 width:75%;
 margin:20px auto;
@@ -35,16 +34,16 @@ font-size:1.6em;
 text-decoration: underline;
 }
 
-#bouton-actualiser{
+#button-generate {
 margin: 50px auto 0 auto;
 text-align:center;
 }
 
-#bouton-actualiser input{
-width:170px;
-height:40px;
-font-size:1.2em;
+#button-generate input{
+width:255px;
+height:35px;
 cursor:pointer;
+font-size: 18px;
 }
 
 #lien-liste {
@@ -58,15 +57,23 @@ left:80%;
 }
 
 #share {
-margin-top: 10px;
+width:255px;
+margin:10px auto 0 auto;
+background: rgba(255, 255, 255, .6);
+border-radius:5px;
 text-align: center;
 font-family: verdana;
 font-size: 0.7em;
 }
 
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-/* Styles */
-
-
+@media (max-width:500px) {
+	img {
+    width: 50%;
+	}
+	#menu {
+	font-size:1.7em;
+	}
+	#plat{
+	margin:15px 0 15px 0;
+	}
 }

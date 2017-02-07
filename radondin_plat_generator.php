@@ -9,7 +9,6 @@ function ucfirst_utf8($stri){
 	else return ucfirst($stri);
 }
 
-
 function radondin_plat($id_array){
 
 	$plat='';

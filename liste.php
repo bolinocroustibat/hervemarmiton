@@ -3,14 +3,12 @@ include("connex.php");
 database_connect();
 mysql_query("SET NAMES UTF8");
 include("radondin_plat_generator.php");
-
 /* Configure le script en français */
 setlocale (LC_TIME, 'fr_FR','fra');
 //Définit le décalage horaire par défaut de toutes les fonctions date/heure  
 date_default_timezone_set("Europe/Paris");
 //Definit l'encodage interne
 mb_internal_encoding("UTF-8");
-
 //Convertir une date US vers une date en français affichant le jour de la semaine
 function dateLongue($date,$heure = 'yes'){
     if($heure == 'yes')
@@ -27,27 +25,15 @@ function dateLongue($date,$heure = 'yes'){
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 	<meta charset="UTF-8" />
-	<?php
-	/*
-	header( "Content-Type: text/html; charset=utf8" );
-	setlocale (LC_ALL, 'fr_FR.utf8');
-	date_default_timezone_set('Europe/Paris');
-	mb_internal_encoding("UTF-8");
-	*/
-	?>
-
 	<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
-	<!-- <link href='http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT:regular,italic&amp;v1' rel='stylesheet' type='text/css' /> -->
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="Description" content="Une sélection à faire frémir les papilles pour Hervé Mariton et pour petits et grands gourmands !" />
 	<meta name="Generator" content="Notepad++" />
-	<meta name="Keywords" content="masterchouf, herve mariton, herve marmiton, marmiton, plats, hasard, delices, délices, barnabé, menu, restaurant, générateur, generator" />
-	<link rel="stylesheet" type="text/css" href="style/normalize.css" />	
+	<meta name="Keywords" content="herve marmiton, herve mariton, marmiton, generateur, generator, plats, hasard, delices, délices, menu, restaurant" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />	
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
 	<link rel="icon" type="image/ico" href="style/favicon.ico" />
 	<link href='http://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
@@ -60,9 +46,7 @@ function dateLongue($date,$heure = 'yes'){
 	<meta property="og:image" content="http://www.hervemarmiton.org/style/hervemarmiton.png">
 	<meta property="og:site_name" content="HerveMarmiton.org : Plus d'un milliard de recettes de cuisine de droite !">
 	<meta property="og:description" content="C'est mon plat de droite généré par HerveMarmiton.org. C'est quoi le tien ?">
-	
 	<title>Hervé Marmiton : plus d'un milliard de recettes de cuisine de droite - Tous les plats créés</title>
-	
 	<!-- Start of StatCounter Code -->
 	<script type="text/javascript">
 	<!-- 
@@ -74,7 +58,6 @@ function dateLongue($date,$heure = 'yes'){
 	<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
 	<noscript><div class="statcounter"><a title="web analytics" href="http://statcounter.com/"><img class="statcounter" src="http://c.statcounter.com/8658855/0/93a06730/1/" alt="web analytics" /></a></div></noscript>	
 	<!-- End of StatCounter Code -->
-	
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -84,7 +67,6 @@ function dateLongue($date,$heure = 'yes'){
 	  ga('create', 'UA-55996840-1', 'auto');
 	  ga('send', 'pageview');
 	</script>
-	
 </head>
 
 <body>
