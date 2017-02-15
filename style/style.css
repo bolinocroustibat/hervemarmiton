@@ -59,11 +59,19 @@ left:80%;
 #share {
 width:255px;
 margin:10px auto 0 auto;
-background: rgba(255, 255, 255, .6);
+background: rgba(255, 255, 255, .2);
 border-radius:5px;
 text-align: center;
 font-family: verdana;
 font-size: 0.7em;
+}
+
+#share a{
+text-decoration:none;
+}
+
+#share a:hover{
+text-decoration:underline;
 }
 
 @media (max-width:500px) {
