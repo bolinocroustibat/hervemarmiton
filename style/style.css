@@ -2,6 +2,25 @@ body{
 background: url(background6.gif) 0 0 repeat;
 }
 
+body:after{
+  content: "dev";
+  position: fixed;
+  width: 80px;
+  height: 25px;
+  background: #EE8E4A;
+  top: 7px;
+  left: -20px;
+  text-align: center;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  line-height: 27px;
+  -ms-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+}
+
 #menu{
 font-family: 'Great Vibes', cursive;
 font-size:2.2em;
