@@ -10,7 +10,7 @@ $id_array=radondin_id(); /* alors on lance la fonction pour générer un ID de p
 $tweet=radondin_plat($id_array).'.';  // Crée le plat en fonction de l'ID !
 
 // require codebird
-require_once('./twitter-codebird/codebird.php');
+require_once(__DIR__.'/twitter-codebird/codebird.php');
 
 \Codebird\Codebird::setConsumerKey("REDACTED", "REDACTED");
 $cb = \Codebird\Codebird::getInstance();
