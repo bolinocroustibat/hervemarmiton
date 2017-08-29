@@ -1,4 +1,8 @@
 <?php
+$actual_base_url = '//'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+if (substr($actual_base_url, -1) != '/') {
+	$actual_base_url = $actual_base_url."/";
+};
 include("connex.php");
 $db = database_connect();
 include("radondin_id_generator.php");
@@ -9,7 +13,7 @@ if (empty($_GET['id'])) { /* si rien n'est reçu dans l'URL (si la ligne "id" du
 	$ip = $_SERVER["REMOTE_ADDR"];
 	$query = $db->prepare("INSERT INTO plats_complets(id,date,ip) VALUES(?,now(),?)"); /* archive en base l'ID créé à la date du moment */
 	$query->execute([$id,$ip]);
-	header('Location: '.$id.'.html');/* on envoie dans l'URL la variable ID */
+	header('Location: '.$actual_base_url.$id.'.html');/* on envoie dans l'URL la variable ID */
 }
 else {
 	$id = $_GET['id']; /* pour les URLs de partages, on met l'ID de l'URL dans une variable */	
@@ -37,7 +41,7 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 	<meta property="og:type" content="website">
 	<meta property="fb:app_id" content="747210042019979" />
 	<meta property="fb:admins" content="bolino">
-	<meta property="og:url" content="http://www.hervemarmiton.org/<?php echo $id; ?>.html">
+	<meta property="og:url" content="<?php echo $actual_base_url.$id; ?>.html">
 	<meta property="og:image" content="http://www.hervemarmiton.org/style/hervemarmiton.png">
 	<meta property="og:site_name" content="HerveMarmiton.org : Plus d'un milliard de recettes de cuisine de droite !">
 	<meta property="og:description" content="C'est mon plat de droite généré par HerveMarmiton.org. C'est quoi le tien ?">
@@ -74,7 +78,7 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 		 | sur <a href="http://www.facebook.com/sharer/sharer.php?u=http://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
 	</div>	
 	
-	<div id="button-generate"><input type="button" OnClick="window.location='http://www.hervemarmiton.org/'" value="Engendrer plus de délices..."></div>
+	<div id="button-generate"><input type="button" OnClick="window.location='<?php echo $actual_base_url; ?>'" value="Engendrer plus de délices..."></div>
 	
 	<a href="liste.html" id="lien-liste">Tous les plats créés</a>
 	
