@@ -1,7 +1,6 @@
 <?php
 include("connex.php");
-database_connect();
-mysql_query("SET NAMES UTF8");
+$db = database_connect();
 include("radondin_plat_generator.php");
 /* Configure le script en français */
 setlocale (LC_TIME, 'fr_FR','fra');
@@ -11,15 +10,15 @@ date_default_timezone_set("Europe/Paris");
 mb_internal_encoding("UTF-8");
 //Convertir une date US vers une date en français affichant le jour de la semaine
 function dateLongue($date,$heure = 'yes'){
-    if($heure == 'yes')
-    {
-    $strDate = mb_convert_encoding('%A %d %B %Y à %Hh%M','ISO-8859-9','UTF-8');  
-    }
-    else
-    {
-    $strDate = mb_convert_encoding('%A %d %B %Y','ISO-8859-9','UTF-8');    
-    }
-    return iconv("ISO-8859-9","UTF-8",strftime($strDate ,strtotime($date))); 
+	if($heure == 'yes')
+	{
+	$strDate = mb_convert_encoding('%A %d %B %Y à %Hh%M','ISO-8859-9','UTF-8');  
+	}
+	else
+	{
+	$strDate = mb_convert_encoding('%A %d %B %Y','ISO-8859-9','UTF-8');    
+	}
+	return iconv("ISO-8859-9","UTF-8",strftime($strDate ,strtotime($date))); 
 }
 ?>
 
@@ -40,7 +39,7 @@ function dateLongue($date,$heure = 'yes'){
 	<meta property="og:locale" content="fr_FR">
 	<meta property="og:title" content="HerveMarmiton.org : plus d'un milliard de recettes de cuisine de droite - Tous les plats créés">
 	<meta property="og:type" content="website">
-    <meta property="fb:app_id" content="747210042019979" />	
+	<meta property="fb:app_id" content="747210042019979" />	
 	<meta property="fb:admins" content="bolino">
 	<meta property="og:url" content="http://www.hervemarmiton.org">
 	<meta property="og:image" content="http://www.hervemarmiton.org/style/hervemarmiton.png">
@@ -59,13 +58,13 @@ function dateLongue($date,$heure = 'yes'){
 	<noscript><div class="statcounter"><a title="web analytics" href="http://statcounter.com/"><img class="statcounter" src="http://c.statcounter.com/8658855/0/93a06730/1/" alt="web analytics" /></a></div></noscript>	
 	<!-- End of StatCounter Code -->
 	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-55996840-1', 'auto');
-	  ga('send', 'pageview');
+		ga('create', 'UA-55996840-1', 'auto');
+		ga('send', 'pageview');
 	</script>
 </head>
 
@@ -80,11 +79,13 @@ function dateLongue($date,$heure = 'yes'){
 		</tr>
 
 		<?php
-		$req = mysql_query("SELECT id,date FROM plats_complets ORDER BY date DESC");
-		while($rep = mysql_fetch_row($req)) {
+		$query = $db->prepare("SELECT id,date FROM plats_complets ORDER BY date DESC");
+		$query->execute();
+		$result_array = $query->fetchAll();
+		foreach($result_array as $row) {
 			echo ('<tr>');
-			echo ('<td><a href="http://www.hervemarmiton.org/'.$rep[0].'.html">'.radondin_plat(explode("-",$rep[0])).'</a></td>');
-			echo ('<td>'.dateLongue($rep[1]).'</td>');	
+			echo ('<td><a href="'.$row[0].'.html">'.generatePlat($db,explode("-",$row[0])).'</a></td>');
+			echo ('<td>'.dateLongue($row[1]).'</td>');	
 			echo ('</tr>');
 		}
 		?>

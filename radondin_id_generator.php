@@ -1,119 +1,75 @@
 <?php
 
-function radondin_id(){
+function chooseGenre(){
+	$genre_nb=rand(1,10);
+	if ($genre_nb<=4) {
+		$genre='ms'; /* masculin singulier */
+	}
+	elseif ($genre_nb > 4 && $genre_nb <= 8) {
+		$genre='fs'; /* féminin singulier */
+	}
+	elseif ($genre_nb==9) {
+		$genre='mp'; /* masculin pluriel */
+	}
+	elseif ($genre_nb==10) {
+		$genre='fp'; /* féminin pluriel */
+	}
+	return $genre;
+}
+
+function chooseFromTable($db,$table_name){
+	$query = $db->prepare("SELECT SUM(poids) FROM ".$table_name);
+	$query->execute();
+	$poids_total = $query->fetch();
+	$aleatoire = rand (1,$poids_total[0]);
+	$query = $db->prepare("SELECT poids,id FROM ".$table_name);
+	$query->execute();
+	$choice_array= $query->fetchAll();
+	foreach ($choice_array as $row) {
+		$aleatoire -= $row[0];
+		if ($aleatoire <= 0) {
+			return $row[1];
+			break;
+		}
+	}
+}
+
+function generateId($db){
 
 	/* CHOIX DU GENRE POUR LA PARTIE DE PLAT 1*/
-	$genre_nb_1=rand(1,10);
-	if ($genre_nb_1<=4) {
-		$genre1='ms'; /* masculin singulier */
-	}
-	elseif ($genre_nb_1 > 4 && $genre_nb_1 <= 8) {
-		$genre1='fs'; /* féminin singulier */
-	}
-	elseif ($genre_nb_1==9) {
-		$genre1='mp'; /* masculin pluriel */
-	}
-	elseif ($genre_nb_1==10) {
-		$genre1='fp'; /* féminin pluriel */
-	}
-	
+	$genre1 = chooseGenre();
 	$id_array = array($genre1);
 	
 	/* ARTICLE - PARTIE DE PLAT 1 */
-	$req = mysql_query("SELECT SUM(poids) FROM articles_".$genre1);
-	$poids_total = mysql_result($req, 0, 0);
-	$aleatoire = rand (1,$poids_total);
-	$req = mysql_query("SELECT poids,id FROM articles_".$genre1);
-	while($rep = mysql_fetch_row($req)) {
-		$aleatoire -= $rep[0];
-		if ($aleatoire <= 0) {
-			array_push ($id_array, $rep[1]);				
-			break;
-		}
-	}
+	$table_name = 'articles_'.$genre1;
+	array_push ($id_array, chooseFromTable($db,$table_name));
 
 	/* ADJECTIF - PARTIE DE PLAT 1 */	
-	$req = mysql_query("SELECT SUM(poids) FROM adjectifs_".$genre1);
-	$poids_total = mysql_result($req, 0, 0);
-	$aleatoire = rand (1,$poids_total);
-	$req = mysql_query("SELECT poids,id FROM adjectifs_".$genre1);
-	while($rep = mysql_fetch_row($req)) {
-		$aleatoire -= $rep[0];
-		if ($aleatoire <= 0) {
-			array_push ($id_array, $rep[1]);	
-			break;
-		}
-	}
+	$table_name = "adjectifs_".$genre1;
+	array_push ($id_array, chooseFromTable($db,$table_name));
 	
 	/* QUANTIFIANT - PARTIE DE PLAT 1 */	
-	$req = mysql_query("SELECT SUM(poids) FROM quantifiants_".$genre1);
-	$poids_total = mysql_result($req, 0, 0);
-	$aleatoire = rand (1,$poids_total);
-	$req = mysql_query("SELECT poids,id FROM quantifiants_".$genre1);
-	while($rep = mysql_fetch_row($req)) {
-		$aleatoire -= $rep[0];
-		if ($aleatoire <= 0) {
-			array_push ($id_array, $rep[1]);	
-			break;
-		}
-	}
+	$table_name= "quantifiants_".$genre1;
+	array_push ($id_array, chooseFromTable($db,$table_name));
 	
 	/* CHOIX DU GENRE POUR LA PARTIE DE PLAT 2 */
-	$genre_nb_2=rand(1,4);
-	if ($genre_nb_2<=4) {
-		$genre2='ms'; /* masculin singulier */
-	}
-	elseif ($genre_nb_2 > 4 && $genre_nb_2 <= 8) {
-		$genre2='fs'; /* féminin singulier */
-	}
-	elseif ($genre_nb_2==9) {
-		$genre2='mp'; /* masculin pluriel */
-	}
-	elseif ($genre_nb_1==10) {
-		$genre2='fp'; /* féminin pluriel */
-	}
+	$genre2 = chooseGenre();
 	array_push ($id_array, $genre2);
 	
 	/* INGREDIENT - PARTIE DE PLAT 2 */	
-	$req = mysql_query("SELECT SUM(poids) FROM ingredients_".$genre2);
-	$poids_total = mysql_result($req, 0, 0);
-	$aleatoire = rand (1,$poids_total);
-	$req = mysql_query("SELECT poids,id FROM ingredients_".$genre2);
-	while($rep = mysql_fetch_row($req)) {
-		$aleatoire -= $rep[0];
-		if ($aleatoire <= 0) {
-			array_push ($id_array, $rep[1]);	
-			break;
-		}
-	}
+	$table_name = "ingredients_".$genre2;
+	array_push ($id_array, chooseFromTable($db,$table_name));
 
 	/* QUALIFICATIF - PARTIE DE PLAT 2 */	
-	$req = mysql_query("SELECT SUM(poids) FROM qualificatifs_".$genre2);
-	$poids_total = mysql_result($req, 0, 0);
-	$aleatoire = rand (1,$poids_total);
-	$req = mysql_query("SELECT poids,id FROM qualificatifs_".$genre2);
-	while($rep = mysql_fetch_row($req)) {
-		$aleatoire -= $rep[0];
-		if ($aleatoire <= 0) {
-			array_push ($id_array, $rep[1]);	
-			break;
-		}
-	}	
+	$table_name = "qualificatifs_".$genre2;
+	array_push ($id_array, chooseFromTable($db,$table_name));	
 	
 	/* FIN */	
-	$req = mysql_query("SELECT SUM(poids) FROM fin");
-	$poids_total = mysql_result($req, 0, 0);
-	$aleatoire = rand (1,$poids_total);
-	$req = mysql_query("SELECT poids,id FROM fin");
-	while($rep = mysql_fetch_row($req)) {
-		$aleatoire -= $rep[0];
-		if ($aleatoire <= 0) {
-			array_push ($id_array, $rep[1]);	
-			break;
-		}
-	}
+	$table_name = "fin";
+	array_push ($id_array, chooseFromTable($db,$table_name));
 
 	return $id_array;
 
 }
+
 ?>

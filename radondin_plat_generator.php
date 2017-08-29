@@ -3,25 +3,27 @@
 /* MET LA PREMIERE LETTRE D'UNE VARCHAR EN MAJUSCULES, MEME UTF-8 */
 function ucfirst_utf8($stri){
 	if($stri{0}>="\xc3")
-		 return (($stri{1}>="\xa0")?
-		 ($stri{0}.chr(ord($stri{1})-32)):
-		 ($stri{0}.$stri{1})).substr($stri,2);
+		return (($stri{1}>="\xa0")?
+		($stri{0}.chr(ord($stri{1})-32)):
+		($stri{0}.$stri{1})).substr($stri,2);
 	else return ucfirst($stri);
 }
 
-function radondin_plat($id_array){
+function generatePlat($db,$id_array){
 
 	$plat='';
 
 	/* ARTICLE - PARTIE DE PLAT 1 */
-	$req = mysql_query("SELECT id,article FROM articles_".$id_array[0]." WHERE id=".$id_array[1]);
-	$rep = mysql_fetch_row($req);
+	$query = $db->prepare("SELECT id,article FROM articles_".$id_array[0]." WHERE id=".$id_array[1]);
+	$query->execute();
+	$rep = $query->fetch();
 	$article=$rep[1];
 	$plat=$article;
 
 	/* ADJECTIF - PARTIE DE PLAT 1 */	
-	$req = mysql_query("SELECT id,adjectif FROM adjectifs_".$id_array[0]." WHERE id=".$id_array[2]);
-	$rep = mysql_fetch_row($req);
+	$query = $db->prepare("SELECT id,adjectif FROM adjectifs_".$id_array[0]." WHERE id=".$id_array[2]);
+	$query->execute();
+	$rep = $query->fetch();
 	$adjectif = $rep[1];
 	if (empty($article)) {
 		$plat=$adjectif;
@@ -30,8 +32,9 @@ function radondin_plat($id_array){
 	}	
 
 	/* QUANTIFIANT - PARTIE DE PLAT 1 */	
-	$req = mysql_query("SELECT id,quantifiant FROM quantifiants_".$id_array[0]." WHERE id=".$id_array[3]);
-	$rep = mysql_fetch_row($req);
+	$query = $db->prepare("SELECT id,quantifiant FROM quantifiants_".$id_array[0]." WHERE id=".$id_array[3]);
+	$query->execute();
+	$rep = $query->fetch();
 	$quantifiant = $rep[1];
 	if((empty($article))&&(empty($adjectif))) {
 		$plat=$quantifiant;
@@ -41,32 +44,35 @@ function radondin_plat($id_array){
 	}
 
 	/* INGREDIENT - PARTIE DE PLAT 2 */	
-	$req = mysql_query("SELECT id,ingredient FROM ingredients_".$id_array[4]." WHERE id=".$id_array[5]);
-	$rep = mysql_fetch_row($req);
+	$query = $db->prepare("SELECT id,ingredient FROM ingredients_".$id_array[4]." WHERE id=".$id_array[5]);
+	$query->execute();
+	$rep = $query->fetch();
 	if (preg_match('#^[aeiou]#', $rep[1])) { /* teste si il y a une voyelle en début de chaîne */
-		$plat=$plat.' d\''.$rep[1];		
+		$plat=$plat.' d\''.$rep[1];
 	}
 	else {
-		$plat=$plat.' de '.$rep[1];		
+		$plat=$plat.' de '.$rep[1];
 	}
 	
 	/* QUALIFICATIF - PARTIE DE PLAT 2 */	
-	$req = mysql_query("SELECT id,qualificatif FROM qualificatifs_".$id_array[4]." WHERE id=".$id_array[6]);
-	$rep = mysql_fetch_row($req);	
+	$query = $db->prepare("SELECT id,qualificatif FROM qualificatifs_".$id_array[4]." WHERE id=".$id_array[6]);
+	$query->execute();
+	$rep = $query->fetch();
 	$plat=$plat.' '.$rep[1]; 
 	
 	/* FIN */	
-	$req = mysql_query("SELECT id,fin FROM fin WHERE id=".$id_array[7]);
-	$rep = mysql_fetch_row($req);	
+	$query = $db->prepare("SELECT id,fin FROM fin WHERE id=".$id_array[7]);
+	$query->execute();
+	$rep = $query->fetch();
 	if (preg_match('#^,#', $rep[1])) { /* teste si il y a une virgule en début de chaîne */
-		$plat=$plat.$rep[1];		
+		$plat=$plat.$rep[1];
 	}
 	else {
-		$plat=$plat.' '.$rep[1]; 		
-	}		
+		$plat=$plat.' '.$rep[1];
+	}
 
 	return ucfirst_utf8($plat);
 
 }
-	
+
 ?>

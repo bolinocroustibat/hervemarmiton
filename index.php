@@ -1,21 +1,21 @@
 <?php
 include("connex.php");
-database_connect();
-mysql_query("SET NAMES UTF8");
+$db = database_connect();
 include("radondin_id_generator.php");
 include("radondin_plat_generator.php");
 if (empty($_GET['id'])) { /* si rien n'est reçu dans l'URL (si la ligne "id" du tableau GET est vide)*/
-	$id_array=radondin_id(); /* alors on lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau */	
+	$id_array=generateId($db); /* alors on lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau */	
 	$id = implode ("-",$id_array); /* on transforme le tableau d'ID en variable dont les éléments dont séparés par des tirets */
 	$ip = $_SERVER["REMOTE_ADDR"];
-	mysql_query("INSERT INTO plats_complets(id,date,ip) VALUES('".$id."',now(),'".$ip."')"); /* archive en base l'ID créé à la date du moment */
-	header('Location: http://www.hervemarmiton.org/'.$id.'.html');/* on envoie dans l'URL la variable ID */
+	$query = $db->prepare("INSERT INTO plats_complets(id,date,ip) VALUES(?,now(),?)"); /* archive en base l'ID créé à la date du moment */
+	$query->execute([$id,$ip]);
+	header('Location: '.$id.'.html');/* on envoie dans l'URL la variable ID */
 }
 else {
-	$id = $_GET['id']; /* pour les URLs de partages, on met l'ID de l'URL dans une variable */
-	$id_array = explode("-",mysql_real_escape_string($_GET['id'])); /* on recoit l'ID par l'URL dans la première ligne d'un tableau GET, on la sépare selon les tirets et la remet dans un tableau */
+	$id = $_GET['id']; /* pour les URLs de partages, on met l'ID de l'URL dans une variable */	
+	$id_array = explode("-",$id); /* on recoit l'ID par l'URL dans la première ligne d'un tableau GET, on la sépare selon les tirets et la remet dans un tableau */
 }
-$plat=radondin_plat($id_array);  // Crée le plat en fonction de l'ID !
+$plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@ $plat=radondin_plat($id_array);  // Crée le plat en fonction de l'ID !
 	<meta property="og:locale" content="fr_FR">
 	<meta property="og:title" content="<?php echo $plat; ?>">
 	<meta property="og:type" content="website">
-    <meta property="fb:app_id" content="747210042019979" />
+	<meta property="fb:app_id" content="747210042019979" />
 	<meta property="fb:admins" content="bolino">
 	<meta property="og:url" content="http://www.hervemarmiton.org/<?php echo $id; ?>.html">
 	<meta property="og:image" content="http://www.hervemarmiton.org/style/hervemarmiton.png">
@@ -50,13 +50,13 @@ $plat=radondin_plat($id_array);  // Crée le plat en fonction de l'ID !
 	<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
 	<!-- End of StatCounter Code -->
 	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-55996840-1', 'auto');
-	  ga('send', 'pageview');
+		ga('create', 'UA-55996840-1', 'auto');
+		ga('send', 'pageview');
 	</script>
 </head>
 
@@ -76,7 +76,7 @@ $plat=radondin_plat($id_array);  // Crée le plat en fonction de l'ID !
 	
 	<div id="button-generate"><input type="button" OnClick="window.location='http://www.hervemarmiton.org/'" value="Engendrer plus de délices..."></div>
 	
-	<a href="http://www.hervemarmiton.org/liste.html" id="lien-liste">Tous les plats créés</a>
+	<a href="liste.html" id="lien-liste">Tous les plats créés</a>
 	
 </body>
 

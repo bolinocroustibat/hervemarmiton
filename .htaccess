@@ -1,8 +1,8 @@
 RewriteEngine On
 
 ############ http://hervemarmiton.org équivalent à http://www.hervemarmiton.org ######
-RewriteCond %{HTTP_HOST} !^www\.hervemarmiton\.org [NC]
-RewriteRule (.*) http://www.hervemarmiton.org/$1 [QSA,R=301,L]
+# RewriteCond %{HTTP_HOST} !^www\.hervemarmiton\.org [NC]
+# RewriteRule (.*) http://www.hervemarmiton.org/$1 [QSA,R=301,L]
 
 ########################   REECRITURE DES PAGES HERVEMARMITON  ############################
 RewriteRule ^liste\.html$				liste.php [QSA]
