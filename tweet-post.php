@@ -5,8 +5,8 @@ include("connex.php");
 $db = database_connect();
 include("radondin_id_generator.php");
 include("radondin_plat_generator.php");
-$id_array=generateId($db); /* alors on lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau */	
-$tweet=generatePlat($db,$id_array).'.';  // Crée le plat en fonction de l'ID !
+$id_array=generateId($db); // lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau
+$tweet=generatePlat($db,$id_array).'.';  // crée le plat en fonction de l'ID
 
 // require codebird
 require_once(__DIR__.'/twitter-codebird/codebird.php');
