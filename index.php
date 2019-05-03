@@ -72,7 +72,7 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 
 	<div id="share">
 		Partager ce plat sur 
-		<a href="//twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+wwww.hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
+		<a href="//twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
 		 | sur <a href="//www.facebook.com/sharer/sharer.php?u=https://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
 	</div>	
 	
