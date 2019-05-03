@@ -58,7 +58,6 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
 		ga('create', 'UA-55996840-1', 'auto');
 		ga('send', 'pageview');
 	</script>
@@ -74,8 +73,8 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 
 	<div id="share">
 		Partager ce plat sur 
-		<a href="http://twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
-		 | sur <a href="http://www.facebook.com/sharer/sharer.php?u=http://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
+		<a href="http://twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+wwww.hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
+		 | sur <a href="http://www.facebook.com/sharer/sharer.php?u=https://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
 	</div>	
 	
 	<div id="button-generate"><input type="button" OnClick="window.location='<?php echo $actual_base_url; ?>'" value="Engendrer plus de délices..."></div>
