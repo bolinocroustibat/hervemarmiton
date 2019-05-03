@@ -26,23 +26,22 @@ function dateLongue($date,$heure = 'yes'){
 <html lang="fr">
 <head>
 	<meta charset="UTF-8" />
-	<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="Description" content="Une sélection à faire frémir les papilles pour Hervé Mariton et pour petits et grands gourmands !" />
-	<meta name="Generator" content="Notepad++" />
 	<meta name="Keywords" content="herve marmiton, herve mariton, marmiton, generateur, generator, plats, hasard, delices, délices, menu, restaurant" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />	
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />	
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
 	<link rel="icon" type="image/ico" href="style/favicon.ico" />
-	<link href='http://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
 	<meta property="og:locale" content="fr_FR">
 	<meta property="og:title" content="HerveMarmiton.org : plus d'un milliard de recettes de cuisine de droite - Tous les plats créés">
 	<meta property="og:type" content="website">
 	<meta property="fb:app_id" content="747210042019979" />	
 	<meta property="fb:admins" content="bolino">
-	<meta property="og:url" content="http://www.hervemarmiton.org">
-	<meta property="og:image" content="http://www.hervemarmiton.org/style/hervemarmiton.png">
+	<meta property="og:url" content="//www.hervemarmiton.org">
+	<meta property="og:image" content="//www.hervemarmiton.org/style/hervemarmiton.png">
 	<meta property="og:site_name" content="HerveMarmiton.org : Plus d'un milliard de recettes de cuisine de droite !">
 	<meta property="og:description" content="C'est mon plat de droite généré par HerveMarmiton.org. C'est quoi le tien ?">
 	<title>Hervé Marmiton : plus d'un milliard de recettes de cuisine de droite - Tous les plats créés</title>
@@ -54,8 +53,8 @@ function dateLongue($date,$heure = 'yes'){
 		var sc_invisible=1;
 	//-->
 	</script>
-	<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
-	<noscript><div class="statcounter"><a title="web analytics" href="http://statcounter.com/"><img class="statcounter" src="http://c.statcounter.com/8658855/0/93a06730/1/" alt="web analytics" /></a></div></noscript>	
+	<script type="text/javascript" src="//www.statcounter.com/counter/counter_xhtml.js"></script>
+	<noscript><div class="statcounter"><a title="web analytics" href="//statcounter.com/"><img class="statcounter" src="//c.statcounter.com/8658855/0/93a06730/1/" alt="web analytics" /></a></div></noscript>	
 	<!-- End of StatCounter Code -->
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

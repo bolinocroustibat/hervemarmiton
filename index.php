@@ -27,13 +27,12 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 <head>
 	<meta charset="UTF-8" />		
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
 	<title>Hervé Marmiton : <?php echo $plat; ?></title>
 	<meta name="Description" content="Hervé Marmiton : une sélection à faire frémir les papilles pour petits et grands gourmands !" />
 	<meta name="Keywords" content="herve marmiton, herve mariton, marmiton, generateur, generator, plats, hasard, delices, délices, menu, restaurant" />
-	<meta name="Generator" content="Notepad++" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />	
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />	
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
 	<link rel="icon" type="image/ico" href="style/favicon.ico" />
 	<meta property="og:locale" content="fr_FR">
@@ -42,7 +41,7 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 	<meta property="fb:app_id" content="747210042019979" />
 	<meta property="fb:admins" content="bolino">
 	<meta property="og:url" content="<?php echo $actual_base_url.$id; ?>.html">
-	<meta property="og:image" content="http://www.hervemarmiton.org/style/hervemarmiton.png">
+	<meta property="og:image" content="//www.hervemarmiton.org/style/hervemarmiton.png">
 	<meta property="og:site_name" content="HerveMarmiton.org : Plus d'un milliard de recettes de cuisine de droite !">
 	<meta property="og:description" content="C'est mon plat de droite généré par HerveMarmiton.org. C'est quoi le tien ?">
 	<!-- Start of StatCounter Code -->
@@ -51,7 +50,7 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 		var sc_security="93a06730"; 
 		var sc_invisible=1;
 	</script>
-	<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
+	<script type="text/javascript" src="//www.statcounter.com/counter/counter_xhtml.js"></script>
 	<!-- End of StatCounter Code -->
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -73,8 +72,8 @@ $plat=generatePlat($db,$id_array);  // Crée le plat en fonction de l'ID !
 
 	<div id="share">
 		Partager ce plat sur 
-		<a href="http://twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+wwww.hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
-		 | sur <a href="http://www.facebook.com/sharer/sharer.php?u=https://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
+		<a href="//twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+wwww.hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
+		 | sur <a href="//www.facebook.com/sharer/sharer.php?u=https://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
 	</div>	
 	
 	<div id="button-generate"><input type="button" OnClick="window.location='<?php echo $actual_base_url; ?>'" value="Engendrer plus de délices..."></div>
