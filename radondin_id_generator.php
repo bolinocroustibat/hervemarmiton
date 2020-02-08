@@ -17,12 +17,12 @@ function chooseGenre(){
 	return $genre;
 }
 
-function chooseFromTable($db,$table_name){
+function chooseFromTable($db, $table_name){
 	$query = $db->prepare("SELECT SUM(poids) FROM ".$table_name);
 	$query->execute();
 	$poids_total = $query->fetch();
-	$aleatoire = rand (1,$poids_total[0]);
-	$query = $db->prepare("SELECT poids,id FROM ".$table_name);
+	$aleatoire = rand(1, $poids_total[0]);
+	$query = $db->prepare("SELECT poids, id FROM ".$table_name);
 	$query->execute();
 	$choice_array= $query->fetchAll();
 	foreach ($choice_array as $row) {
@@ -44,11 +44,11 @@ function generateId($db){
 	$table_name = 'articles_'.$genre1;
 	array_push ($id_array, chooseFromTable($db,$table_name));
 
-	/* ADJECTIF - PARTIE DE PLAT 1 */	
+	/* ADJECTIF - PARTIE DE PLAT 1 */
 	$table_name = "adjectifs_".$genre1;
 	array_push ($id_array, chooseFromTable($db,$table_name));
 	
-	/* QUANTIFIANT - PARTIE DE PLAT 1 */	
+	/* QUANTIFIANT - PARTIE DE PLAT 1 */
 	$table_name= "quantifiants_".$genre1;
 	array_push ($id_array, chooseFromTable($db,$table_name));
 	
@@ -56,11 +56,11 @@ function generateId($db){
 	$genre2 = chooseGenre();
 	array_push ($id_array, $genre2);
 	
-	/* INGREDIENT - PARTIE DE PLAT 2 */	
+	/* INGREDIENT - PARTIE DE PLAT 2 */
 	$table_name = "ingredients_".$genre2;
 	array_push ($id_array, chooseFromTable($db,$table_name));
 
-	/* QUALIFICATIF - PARTIE DE PLAT 2 */	
+	/* QUALIFICATIF - PARTIE DE PLAT 2 */
 	$table_name = "qualificatifs_".$genre2;
 	array_push ($id_array, chooseFromTable($db,$table_name));	
 	
