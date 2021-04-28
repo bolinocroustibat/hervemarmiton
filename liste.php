@@ -78,7 +78,7 @@ function dateLongue($date,$heure = 'yes'){
 		</tr>
 
 		<?php
-		$query = $db->prepare("SELECT id,date FROM plats_complets ORDER BY date DESC");
+		$query = $db->prepare("SELECT id,date FROM generated ORDER BY date DESC");
 		$query->execute();
 		$result_array = $query->fetchAll();
 		foreach($result_array as $row) {
