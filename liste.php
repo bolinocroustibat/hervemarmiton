@@ -1,7 +1,7 @@
 <?php
 include("connect.php");
 $db = database_connect();
-include("radondin_plat_generator.php");
+include("generator_plat.php");
 /* Configure le script en français */
 setlocale (LC_TIME, 'fr_FR','fra');
 //Définit le décalage horaire par défaut de toutes les fonctions date/heure  

@@ -5,8 +5,8 @@ if (substr($actual_base_url, -1) != '/') {
 };
 include("connect.php");
 $db = database_connect();
-include("radondin_id_generator.php");
-include("radondin_plat_generator.php");
+include("generator_id.php");
+include("generator_plat.php");
 if (empty($_GET['id'])) { /* si rien n'est reçu dans l'URL (si la ligne "id" du tableau GET est vide)*/
 	$id_array = generateId($db); /* alors on lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau */
 	$id = implode("-", $id_array); /* on transforme le tableau d'ID en variable dont les éléments dont séparés par des tirets */

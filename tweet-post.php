@@ -3,8 +3,8 @@
 header('Content-Type: text/html; charset=utf-8');
 include("connect.php");
 $db = database_connect();
-include("radondin_id_generator.php");
-include("radondin_plat_generator.php");
+include("generator_id.php");
+include("generator_plat.php");
 $id_array=generateId($db); // lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau
 $tweet=generatePlat($db,$id_array).'.';  // crée le plat en fonction de l'ID
 
