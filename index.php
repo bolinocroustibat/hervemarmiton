@@ -3,7 +3,7 @@ $actual_base_url = '//'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 if (substr($actual_base_url, -1) != '/') {
 	$actual_base_url = $actual_base_url."/";
 };
-include("connex.php");
+include("connect.php");
 $db = database_connect();
 include("radondin_id_generator.php");
 include("radondin_plat_generator.php");

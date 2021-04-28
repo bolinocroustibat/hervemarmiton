@@ -1,7 +1,7 @@
 <?php
 
 header('Content-Type: text/html; charset=utf-8');
-include("connex.php");
+include("connect.php");
 $db = database_connect();
 include("radondin_id_generator.php");
 include("radondin_plat_generator.php");

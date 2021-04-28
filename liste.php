@@ -1,5 +1,5 @@
 <?php
-include("connex.php");
+include("connect.php");
 $db = database_connect();
 include("radondin_plat_generator.php");
 /* Configure le script en français */
