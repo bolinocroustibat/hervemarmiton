@@ -41,7 +41,7 @@ $plat = generatePlat($db, $id_array);  // Crée le plat en fonction de l'ID !
 	<meta property="fb:app_id" content="747210042019979" />
 	<meta property="fb:admins" content="bolino">
 	<meta property="og:url" content="<?php echo $actual_base_url . $id; ?>.html">
-	<meta property="og:image" content="//www.hervemarmiton.org/style/hervemarmiton.png">
+	<meta property="og:image" content="//adriencarpentier.com/hervemarmiton/style/hervemarmiton.png">
 	<meta property="og:site_name" content="HerveMarmiton.org : Plus d'un milliard de recettes de cuisine de droite !">
 	<meta property="og:description" content="C'est mon plat de droite généré par HerveMarmiton.org. C'est quoi le tien ?">
 	<!-- Start of StatCounter Code -->
@@ -80,7 +80,7 @@ $plat = generatePlat($db, $id_array);  // Crée le plat en fonction de l'ID !
 	<div id="share">
 		Partager ce plat sur
 		<a href="//twitter.com/?status=<?php echo urlencode($plat); ?>,+sur+hervemarmiton.org+via+@HerveMarmiton">Twitter</a>
-		| sur <a href="//www.facebook.com/sharer/sharer.php?u=https://www.hervemarmiton.org/<?php echo $id; ?>.html">Facebook</a>
+		| sur <a href="//www.facebook.com/sharer/sharer.php?u=https://adriencarpentier.com/hervemarmiton/<?php echo $id; ?>.html">Facebook</a>
 	</div>
 
 	<div id="button-generate"><input type="button" OnClick="window.location='<?php echo $actual_base_url; ?>'" value="Engendrer plus de délices..."></div>

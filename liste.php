@@ -40,8 +40,8 @@ function dateLongue($date,$heure = 'yes'){
 	<meta property="og:type" content="website">
 	<meta property="fb:app_id" content="747210042019979" />	
 	<meta property="fb:admins" content="bolino">
-	<meta property="og:url" content="//www.hervemarmiton.org">
-	<meta property="og:image" content="//www.hervemarmiton.org/style/hervemarmiton.png">
+	<meta property="og:url" content="//adriencarpentier.com/hervemarmiton">
+	<meta property="og:image" content="//adriencarpentier.com/hervemarmiton/style/hervemarmiton.png">
 	<meta property="og:site_name" content="HerveMarmiton.org : Plus d'un milliard de recettes de cuisine de droite !">
 	<meta property="og:description" content="C'est mon plat de droite généré par HerveMarmiton.org. C'est quoi le tien ?">
 	<title>Hervé Marmiton : plus d'un milliard de recettes de cuisine de droite - Tous les plats créés</title>
