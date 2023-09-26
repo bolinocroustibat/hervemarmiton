@@ -1,5 +1,5 @@
 <?php
-$actual_base_url = '//' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+$actual_base_url = '//' . $_SERVER['HTTP_HOST'] . "/hervemarmiton";
 if (substr($actual_base_url, -1) != '/') {
 	$actual_base_url = $actual_base_url . "/";
 };

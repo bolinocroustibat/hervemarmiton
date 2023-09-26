@@ -2,11 +2,9 @@
 
 /* MET LA PREMIERE LETTRE D'UNE VARCHAR EN MAJUSCULES, MEME UTF-8 */
 function ucfirst_utf8($stri){
-	if($stri{0}>="\xc3")
-		return (($stri{1}>="\xa0")?
-		($stri{0}.chr(ord($stri{1})-32)):
-		($stri{0}.$stri{1})).substr($stri,2);
-	else return ucfirst($stri);
+    $firstChar = mb_substr($string, 0, 1, "utf-8");
+    $then = mb_substr($string, 1, null, "utf-8");
+    return mb_strtoupper($firstChar, "utf-8") . $then;
 }
 
 function generatePlat($db,$id_array){
