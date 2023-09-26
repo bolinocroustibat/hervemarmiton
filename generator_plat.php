@@ -1,7 +1,7 @@
 <?php
 
 /* MET LA PREMIERE LETTRE D'UNE VARCHAR EN MAJUSCULES, MEME UTF-8 */
-function ucfirst_utf8($stri){
+function ucfirst_utf8($string){
     $firstChar = mb_substr($string, 0, 1, "utf-8");
     $then = mb_substr($string, 1, null, "utf-8");
     return mb_strtoupper($firstChar, "utf-8") . $then;
