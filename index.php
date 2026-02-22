@@ -1,24 +1,27 @@
 <?php
-$actual_base_url = '//' . $_SERVER['HTTP_HOST'] . "/hervemarmiton";
-if (substr($actual_base_url, -1) != '/') {
-	$actual_base_url = $actual_base_url . "/";
-};
+$host = $_SERVER['HTTP_HOST'] ?? 'adriencarpentier.com';
+$actual_base_url = "https://" . $host . "/hervemarmiton/";
+
 include("connect.php");
 $db = database_connect();
 include("generator_id.php");
 include("generator_plat.php");
-if (empty($_GET['id'])) { /* si rien n'est reçu dans l'URL (si la ligne "id" du tableau GET est vide)*/
-	$id_array = generateId($db); /* alors on lance la fonction pour générer un ID de plat au hasard, qui sera renvoyé sous forme de tableau */
-	$id = implode("-", $id_array); /* on transforme le tableau d'ID en variable dont les éléments dont séparés par des tirets */
-	$ip = $_SERVER["REMOTE_ADDR"];
-	$query = $db->prepare("INSERT INTO generated (id,ip) VALUES (?,?)"); /* archive en base l'ID créé à la date du moment */
-	$query->execute([$id,$ip]);
-	header('Location: ' . $actual_base_url . $id . '.html');/* on envoie dans l'URL la variable ID */
+
+if (empty($_GET['id'])) { // si rien n'est reçu dans l'URL (si la ligne "id" du tableau GET est vide)
+    $id_array = generateId($db); 
+    $id = implode("-", $id_array); // on transforme le tableau d'ID en variable dont les éléments dont séparés par des tirets
+    $ip = $_SERVER["REMOTE_ADDR"] ?? '0.0.0.0';
+    $query = $db->prepare("INSERT INTO generated (id,ip) VALUES (?,?)"); 
+    $query->execute([$id,$ip]);
+    
+    // Ensure actual_base_url ends with / so the redirect works
+    header('Location: ' . $actual_base_url . $id . '.html'); // on envoie dans l'URL la variable ID
+    exit; // Always exit after a header redirect
 } else {
-	$id = $_GET['id']; /* pour les URLs de partages, on met l'ID de l'URL dans une variable */
-	$id_array = explode("-", $id); /* on recoit l'ID par l'URL dans la première ligne d'un tableau GET, on la sépare selon les tirets et la remet dans un tableau */
+    $id = $_GET['id']; // pour les URLs de partages, on met l'ID de l'URL dans une variable
+    $id_array = explode("-", $id); // on recoit l'ID par l'URL dans la première ligne d'un tableau GET, on la sépare selon les tirets et la remet dans un tableau
 }
-$plat = generatePlat($db, $id_array);  // Crée le plat en fonction de l'ID !
+$plat = generatePlat($db, $id_array);
 ?>
 
 <!DOCTYPE html>
