@@ -1,25 +1,48 @@
 <?php
-include("connect.php");
+require_once __DIR__ . '/connect.php';
 $db = database_connect();
-include("generator_plat.php");
-/* Configure le script en français */
-setlocale (LC_TIME, 'fr_FR','fra');
-//Définit le décalage horaire par défaut de toutes les fonctions date/heure  
+require_once __DIR__ . '/generator_plat.php';
+
+// Définit le décalage horaire par défaut de toutes les fonctions date/heure
 date_default_timezone_set("Europe/Paris");
-//Definit l'encodage interne
-mb_internal_encoding("UTF-8");
-//Convertir une date US vers une date en français affichant le jour de la semaine
-function dateLongue($date,$heure = 'yes'){
-	if($heure == 'yes')
-	{
-	$strDate = mb_convert_encoding('%A %d %B %Y à %Hh%M','ISO-8859-9','UTF-8');  
+
+// Convertir une date US vers une date en français affichant le jour de la semaine
+function dateLongue($date, $heure = 'yes')
+{
+	$timestamp = strtotime($date);
+	if ($timestamp === false) {
+		return '';
 	}
-	else
-	{
-	$strDate = mb_convert_encoding('%A %d %B %Y','ISO-8859-9','UTF-8');    
+
+	$weekdays = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+	$months = [
+		1 => 'janvier',
+		2 => 'février',
+		3 => 'mars',
+		4 => 'avril',
+		5 => 'mai',
+		6 => 'juin',
+		7 => 'juillet',
+		8 => 'août',
+		9 => 'septembre',
+		10 => 'octobre',
+		11 => 'novembre',
+		12 => 'décembre',
+	];
+
+	$formatted = $weekdays[(int) date('w', $timestamp)]
+		. ' ' . date('d', $timestamp)
+		. ' ' . $months[(int) date('n', $timestamp)]
+		. ' ' . date('Y', $timestamp);
+
+	if ($heure === 'yes') {
+		$formatted .= ' à ' . date('H', $timestamp) . 'h' . date('i', $timestamp);
 	}
-	return iconv("ISO-8859-9","UTF-8",strftime($strDate ,strtotime($date))); 
+
+	return $formatted;
 }
+
+$maps = load_vocabulary_maps($db);
 ?>
 
 <!DOCTYPE html>
@@ -80,12 +103,19 @@ function dateLongue($date,$heure = 'yes'){
 		<?php
 		$query = $db->prepare("SELECT id,date FROM generated ORDER BY date DESC");
 		$query->execute();
-		$result_array = $query->fetchAll();
-		foreach($result_array as $row) {
-			echo ('<tr>');
-			echo ('<td><a href="'.$row[0].'.html">'.generatePlat($db,explode("-",$row[0])).'</a></td>');
-			echo ('<td>'.dateLongue($row[1]).'</td>');	
-			echo ('</tr>');
+		foreach ($query as $row) {
+			$id_array = parse_dish_id($row[0]);
+			if ($id_array === null) {
+				continue;
+			}
+			$plat = generatePlatFromMaps($maps, $id_array);
+			if ($plat === null) {
+				continue;
+			}
+			echo '<tr>';
+			echo '<td><a href="' . h($row[0]) . '.html">' . h($plat) . '</a></td>';
+			echo '<td>' . h(dateLongue($row[1])) . '</td>';
+			echo '</tr>';
 		}
 		?>
 
